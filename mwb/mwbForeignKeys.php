@@ -3,5 +3,5 @@
 /**
  * Description of mwbForeignKeys
  */
-class mwbForeignKeys {
+class mwbForeignKeys extends mwbIterator{
 }
