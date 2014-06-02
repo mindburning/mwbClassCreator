@@ -35,5 +35,19 @@ class mwbReader{
 		$this->zip = new ZipArchive($fn);
 		$this->zip->open($fn);
 		$model = simplexml_load_string( $d=$this->zip->getFromName('document.mwb.xml') );
+		
+		$classes = array();
+		
+		$tableConnections = array();
+		foreach( $model->xpath("//value[@struct-name='workbench.physical.Connection']") as $connection ){
+			$tableConnection = array();
+			foreach($connection->value as $connectionLink){
+				$tableConnection[(string)$connectionLink['key']] = (string)$connectionLink;
+			}
+			foreach($connection->link as $connectionLink){
+				$tableConnection[(string)$connectionLink['key']] = (string)$connectionLink;
+			}
+			$tableConnections[$tableConnection['foreignKey']] = $tableConnection;
+		}
 	}
 }
