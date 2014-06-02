@@ -30,7 +30,7 @@ class mwbReader{
 	 * öffnet die Zip Datei und erzeugt das Klassenmodell
 	 * @param string $fn Pfad zur mwb Datei
 	 */
-	public function renderFile( $fn ){
+	public function renderFile( $fn, $tplFile = "phpclass.php" ){
 		$modelPrefix = $this->modelPrefix;
 		$this->zip = new ZipArchive($fn);
 		$this->zip->open($fn);
@@ -85,7 +85,7 @@ class mwbReader{
 		$incFileContent = "<?php\r\n";
 		foreach($classes as $className=>$classData){
 			ob_start();
-			include __DIR__ . "/templateClass.php";
+			include __DIR__ . "/templates/" . $tplFile;
 			$c = ob_get_clean();
 			file_put_contents($cPathName = $classPath . $className . ".php", $c);
 			chmod($cPathName, 0666);
