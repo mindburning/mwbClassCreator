@@ -1,5 +1,5 @@
 <?php
-include_once './mwbColumn.php';
+include_once 'mwbColumn.php';
 
 /**
  * Description of mwbIterator

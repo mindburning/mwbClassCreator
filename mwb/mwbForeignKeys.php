@@ -1,4 +1,5 @@
 <?php
+include_once 'mwbIterator.php';
 
 /**
  * Description of mwbForeignKeys

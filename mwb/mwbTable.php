@@ -1,8 +1,8 @@
 <?php
-include_once './mwbUtils.php';
-include_once './mwbColumns.php';
-include_once './mwbForeignKeys.php';
-include_once './mwbIndexColumns.php';
+include_once 'mwbUtils.php';
+include_once 'mwbColumns.php';
+include_once 'mwbForeignKeys.php';
+include_once 'mwbIndexColumns.php';
 
 /**
  * mwb Tabelle
