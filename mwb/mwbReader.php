@@ -85,6 +85,7 @@ class mwbReader{
 		$incFileContent = "<?php\r\n";
 		foreach($classes as $className=>$classData){
 			ob_start();
+			include __DIR__ . "/templateClass.php";
 			$c = ob_get_clean();
 			file_put_contents($cPathName = $classPath . $className . ".php", $c);
 			chmod($cPathName, 0666);
