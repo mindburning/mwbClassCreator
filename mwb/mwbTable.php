@@ -1,6 +1,8 @@
 <?php
 
 class mwbTable {
+	public $id = null;
+	
 	protected static $instances = array();
 	protected static $instancesByID = array();
 	
