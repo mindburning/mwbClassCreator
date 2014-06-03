@@ -1,7 +1,7 @@
 <?php echo "<?php\r\n"; ?>
 include_once("inc.php");
 /**
- * build by mwb class creator https://github.com/mindburning/mwbClassCreator
+ * created by mwb class creator https://github.com/mindburning/mwbClassCreator
  **/
 class <?php echo $className; ?>{
 	const TABLE = '<?php echo $classData['table']; ?>';
