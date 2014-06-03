@@ -8,8 +8,8 @@ Das Template wird je Tabelle geparst. Das Ergebnis jedes parser durchlaufs wird 
 Neben den Modellklassen wird zusätzlich noch eine inc.php im Exportverzeichnis angelegt, welche alle im Modell enthaltenen Klassen includiert.
 
 ``` php
-mwbReader::getInstance(__DIR__ . "/model/", '')
-		->renderFile('./model.mwb', 'phpclass.php');
+mwbReader::getInstance("./model/")
+		->renderFile('./model.mwb');
 ```
 
 renderFile(...) erzeugt die php Modell Klassen und legt diese im vorhandenen Verzeichnis "model" im aktuellen Verzeichnis ab.
