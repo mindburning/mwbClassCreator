@@ -5,20 +5,54 @@ class mwbReader{
 	/**
 	 * @var string path
 	 */
-	public $outputFolder = '';
+	protected $_outputFolder = '';
 	
 	/**
 	 * @var string model prefix
 	 */
-	public $modelPrefix = null;
+	protected $_modelPrefix = null;
 	
 	/**
 	 * @var ZipArchive
 	 */
-	protected $zip = null;
+	protected $_zip = null;
+	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param string|null $outFolder
+	 * @param string|null $modelPrefix
+	 */
+	public function __construct( $outFolder = null, $modelPrefix = null ) {
+		$this->setFolder( $outFolder )
+			->setModelPrefix( $modelPrefix );
+	}
+	
+	/**
+	 * setzt den Ausgabepfad (Ordner)
+	 * 
+	 * @param string|null $outFolder Pfad zum Ausgabeverzeichnis
+	 * @return \mwbReader
+	 */
+	public function setFolder( $outFolder = null ) {
+		$this->_outputFolder = $outFolder;
+		return $this;
+	}
+	
+	/**
+	 * setzt das verwendete Modelprefix
+	 * 
+	 * @param string|null $modelPrefix prefix für alle model Klassen, dieser wird aus den Klassennamen entfernt
+	 * @return \mwbReader
+	 */
+	public function setModelPrefix( $modelPrefix = null ) {
+		$this->_modelPrefix = $modelPrefix;
+		return $this;
+	}
 	
 	/**
 	 * Table- zu Classname wrapper
+	 * 
 	 * @param string $tableName Tabellenname aus mwb Datei
 	 * @return string
 	 */
@@ -28,13 +62,14 @@ class mwbReader{
 	
 	/**
 	 * öffnet die Zip Datei und erzeugt das Klassenmodell
+	 * 
 	 * @param string $fn Pfad zur mwb Datei
 	 */
 	public function renderFile( $fn, $tplFile = "phpclass.php" ){
-		$modelPrefix = $this->modelPrefix;
-		$this->zip = new ZipArchive($fn);
-		$this->zip->open($fn);
-		$model = simplexml_load_string( $d=$this->zip->getFromName('document.mwb.xml') );
+		$modelPrefix = $this->_modelPrefix;
+		$this->_zip = new ZipArchive($fn);
+		$this->_zip->open($fn);
+		$model = simplexml_load_string( $d=$this->_zip->getFromName('document.mwb.xml') );
 		
 		$classes = array();
 		
@@ -81,7 +116,7 @@ class mwbReader{
 			preg_match_all('#([^_]*?)_(.*)#msi', $view->name, $res);
 			$views[$res[1][0]][$res[2][0]] = $view;
 		}
-		$classPath = $this->outputFolder;
+		$classPath = $this->_outputFolder;
 		$incFileContent = "<?php\r\n";
 		foreach($classes as $className=>$classData){
 			ob_start();
