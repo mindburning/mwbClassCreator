@@ -63,17 +63,17 @@ class mwbReader{
 	/**
 	 * öffnet die Zip Datei und erzeugt das Klassenmodell
 	 * 
-	 * @param string $fn Pfad zur mwb Datei
+	 * @param string $mwbFilename Pfad zur mwb Datei
 	 * @param string $tplFile gibt an, welche Ausgabevorlage genutzt werden soll
 	 * @return \mwbReader
 	 * @throws Exception
 	 */
-	public function renderFile( $fn, $tplFile = "phpclass.php" ){
+	public function renderFile( $mwbFilename, $tplFile = "phpclass.php" ){
 		$modelPrefix = $this->_modelPrefix;
-		if( file_exists( $fn ) && is_file( $fn ) ){
-			$this->_zip = new ZipArchive($fn);
-			$this->_zip->open($fn);
-			$model = simplexml_load_string( $d=$this->_zip->getFromName('document.mwb.xml') );
+		if( file_exists( $mwbFilename ) && is_file( $mwbFilename ) ){
+			$this->_zip = new ZipArchive( $mwbFilename );
+			$this->_zip->open( $mwbFilename );
+			$model = simplexml_load_string( $tmp = $this->_zip->getFromName('document.mwb.xml') );
 
 			$classes = array();
 
