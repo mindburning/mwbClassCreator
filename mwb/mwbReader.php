@@ -29,6 +29,17 @@ class mwbReader{
 	}
 	
 	/**
+	 * erzeugt eine neue Instanz
+	 * 
+	 * @param string|null $outFolder
+	 * @param string|null $modelPrefix
+	 * @return \mwbReader
+	 */
+	public static function getInstance( $outFolder = null, $modelPrefix = null ){
+		return new mwbReader( $outFolder, $modelPrefix );
+	}
+	
+	/**
 	 * setzt den Ausgabepfad (Ordner)
 	 * 
 	 * @param string|null $outFolder Pfad zum Ausgabeverzeichnis
