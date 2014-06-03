@@ -99,6 +99,7 @@ class mwbReader{
 				}
 				$tableConnections[$tableConnection['foreignKey']] = $tableConnection;
 			}
+			
 			for($i=0;$i<2;$i++){
 				foreach( $model->xpath("//value[@content-struct-name='db.mysql.Table']/value[@struct-name='db.mysql.Table']") as $simpleTable ){
 					$table = mwbTable::getInstance( $simpleTable );
@@ -126,11 +127,13 @@ class mwbReader{
 					}
 				}
 			}
+			
 			foreach( $model->xpath("//value[@content-struct-name='db.mysql.View']/value[@struct-name='db.mysql.View']") as $simpleTable ){
 				$view = mwbView::getInstance( $simpleTable );
 				preg_match_all('#([^_]*?)_(.*)#msi', $view->name, $res);
 				$views[$res[1][0]][$res[2][0]] = $view;
 			}
+			
 			$classPath = $this->_outputFolder;
 			$incFileContent = "<?php\r\n";
 			foreach($classes as $className=>$classData){
@@ -141,6 +144,7 @@ class mwbReader{
 				chmod($cPathName, 0666);
 				$incFileContent.="include_once(__DIR__ . '/" . $className . ".php" . "');\r\n";
 			}
+			
 			file_put_contents($cPathName = $classPath . "inc.php", $incFileContent);
 			chmod($cPathName, 0666);
 			return $this;
