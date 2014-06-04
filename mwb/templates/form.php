@@ -3,6 +3,12 @@
 	<?php
 		$type="text";
 		$isFK = false;
+		$isPrimary = false;
+		
+		if( isset( $classData['indices']->PRIMARY->columns->$varName ) ){
+			$isPrimary = true;
+		}
+		
 		foreach($classData['refto'] as $refToClass=>$fkList){
 			foreach($fkList as $keyName=>$refData){
 				if( isset( $refData->columns[$varName] ) ){
@@ -10,7 +16,8 @@
 				}
 			}
 		}
-		if( !$isFK ){
+		
+		if( !$isFK && !$isPrimary){
 			switch( $type ){
 				case 'text':
 					echo '<label><span class="lblText">' . htmlentities($varName) . "</span>";
@@ -19,7 +26,9 @@
 					break;
 			}
 		}else{
-			
+			if( $isPrimary ){
+				echo '<?php if( $data->get' . ucfirst($varName) . '() ){ ?><input type="hidden" name="' . $className . '[' . $varName . ']" value="<?php echo $data->get' . ucfirst($varName) . '(); ?>" class="input"/>' . "<?php } ?>\n";
+			}
 		}
 	?>
 <?php } ?>
